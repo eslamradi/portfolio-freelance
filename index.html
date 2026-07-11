@@ -25,9 +25,11 @@
 <meta name="twitter:title" content="Eslam Radi | Web Developer">
 <meta name="twitter:description" content="Online stores, payment systems, company websites. Tell me what you're building.">
 <meta name="twitter:image" content="https://eslamradi.com/og.png">
+<link rel="preload" as="image" href="me.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
   :root{
     --paper:#FAFAF8;
@@ -91,9 +93,9 @@
   h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.1;letter-spacing:-0.02em;margin-bottom:18px}
   .lede{font-size:18px;color:var(--muted);max-width:540px}
   .avail{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:13px;color:var(--muted)}
-  .avail i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(14,122,95,.55);animation:pulse 2s ease infinite}
-  html[data-theme="dark"] .avail i{box-shadow:0 0 0 0 rgba(47,174,139,.5)}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,122,95,.45)}70%{box-shadow:0 0 0 8px rgba(14,122,95,0)}100%{box-shadow:0 0 0 0 rgba(14,122,95,0)}}
+  .avail i{position:relative;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .avail i::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--accent);opacity:.45;animation:pulse 2s ease infinite}
+  @keyframes pulse{0%{transform:scale(1);opacity:.45}70%{transform:scale(2.6);opacity:0}100%{transform:scale(2.6);opacity:0}}
   .avail b{color:var(--ink);font-weight:500}
 
   /* Motion */
@@ -236,6 +238,7 @@
   </div>
 </nav>
 
+<main>
 <header>
   <div class="hero-grid">
     <div>
@@ -244,7 +247,7 @@
       <p class="avail reveal reveal-d3"><i aria-hidden="true"></i><b>Available</b> for new projects</p>
     </div>
     <div class="portrait reveal reveal-d4">
-      <img src="me.PNG" alt="Eslam, web developer" width="240" height="240" fetchpriority="high">
+      <img src="me.webp" alt="Eslam, web developer" width="240" height="240" fetchpriority="high" decoding="async">
     </div>
   </div>
 </header>
@@ -379,6 +382,7 @@
     </a>
   </div>
 </div>
+</main>
 
 <footer>
   <div>© 2026 Eslam</div>
