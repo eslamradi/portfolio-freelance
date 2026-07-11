@@ -58,51 +58,68 @@
     --channel-bg:#22262B;
     --channel-line:#33383F;
   }
-  body{transition:background .2s,color .2s}
+  body{transition:background .25s ease,color .25s ease}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
   body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
   .wrap{max-width:880px;margin:0 auto;padding:0 24px}
-  a{color:var(--accent);text-decoration:none}
+  a{color:var(--accent);text-decoration:none;transition:color .2s ease}
   a:hover{text-decoration:underline}
   a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 
   nav{padding:28px 0;display:flex;justify-content:space-between;align-items:center}
   .logo{font-family:var(--mono);font-size:14px;font-weight:500}
   .logo span{color:var(--accent)}
-  nav a.top{color:var(--muted);font-size:14px}
+  nav a.top{color:var(--muted);font-size:14px;transition:color .2s ease}
   nav a.top:hover{color:var(--ink);text-decoration:none}
   .nav-right{display:flex;align-items:center;gap:18px}
-  .theme{appearance:none;-webkit-appearance:none;background:none;border:1px solid var(--line);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted)}
+  .theme{appearance:none;-webkit-appearance:none;background:none;border:1px solid var(--line);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:border-color .2s ease,color .2s ease,transform .2s ease}
   .theme:hover{border-color:var(--accent);color:var(--accent)}
-  .theme svg{width:17px;height:17px}
+  .theme:active{transform:scale(.94)}
+  .theme svg{width:17px;height:17px;transition:transform .35s ease}
+  .theme:hover svg{transform:rotate(12deg)}
   .theme .moon{display:none}
   html[data-theme="dark"] .theme .sun{display:none}
   html[data-theme="dark"] .theme .moon{display:block}
 
   header{padding:64px 0 56px}
   .hero-grid{display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:center}
-  .portrait{width:240px;height:240px;border-radius:18px;border:1px solid var(--line);overflow:hidden;background:var(--accent-soft)}
-  .portrait img{width:100%;height:100%;object-fit:cover;object-position:48% 35%;display:block}
+  .portrait{width:240px;height:240px;border-radius:18px;border:1px solid var(--line);overflow:hidden;background:var(--accent-soft);transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .25s ease}
+  .portrait:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:48% 35%;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  .portrait:hover img{transform:scale(1.04)}
   h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.1;letter-spacing:-0.02em;margin-bottom:18px}
   .lede{font-size:18px;color:var(--muted);max-width:540px}
 
+  /* Motion */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal-d1{transition-delay:.08s}
+  .reveal-d2{transition-delay:.16s}
+  .reveal-d3{transition-delay:.24s}
+  .reveal-d4{transition-delay:.32s}
 
   /* The question */
   .ask{padding:8px 0 72px}
   .ask h2{font-family:var(--mono);font-size:14px;color:var(--muted);font-weight:400;margin-bottom:20px}
   .ask h2 b{color:var(--accent);font-weight:500}
+  .ask h2 .cursor{display:inline-block;width:.55ch;height:1.1em;background:var(--accent);margin-left:2px;vertical-align:-.15em;animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
   .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-  .choice{appearance:none;-webkit-appearance:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 20px;text-align:left;cursor:pointer;font-family:var(--body);font-size:16px;color:var(--ink);transition:border-color .15s}
-  .choice:hover{border-color:var(--accent)}
-  .choice.open{border-color:var(--accent);background:var(--accent-soft)}
+  .choice{appearance:none;-webkit-appearance:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 20px;text-align:left;cursor:pointer;font-family:var(--body);font-size:16px;color:var(--ink);transition:border-color .2s ease,background .2s ease,transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
+  .choice:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 28px -18px rgba(14,122,95,.55)}
+  .choice:active{transform:translateY(-1px)}
+  .choice.open{border-color:var(--accent);background:var(--accent-soft);transform:none;box-shadow:none}
   .choice h3{font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:4px;color:var(--ink)}
   .choice p{color:var(--muted);font-size:14.5px}
-  .answer{display:none;margin-top:18px;background:var(--dark-block);color:var(--dark-block-text);border-radius:12px;padding:26px 28px;font-size:15.5px;line-height:1.7}
-  .answer.show{display:block}
+  .answer{display:grid;grid-template-rows:0fr;margin-top:0;opacity:0;background:var(--dark-block);color:var(--dark-block-text);border-radius:12px;font-size:15.5px;line-height:1.7;transition:grid-template-rows .4s cubic-bezier(.22,1,.36,1),opacity .3s ease,margin .3s ease}
+  .answer > .answer-inner{overflow:hidden;min-height:0}
+  .answer.show{grid-template-rows:1fr;opacity:1;margin-top:18px}
+  .answer-inner{padding:0 28px}
+  .answer.show .answer-inner{padding:26px 28px}
   .answer strong{color:#fff}
-  html[data-theme="dark"] .answer{border:1px solid var(--line)}
+  html[data-theme="dark"] .answer{border:1px solid transparent}
+  html[data-theme="dark"] .answer.show{border-color:var(--line)}
   html[data-theme="dark"] .cta{border:1px solid var(--line)}
   .answer .from{font-family:var(--mono);font-size:12.5px;color:#8FD4B8;margin-bottom:12px;display:block}
   .answer a{color:#8FD4B8}
@@ -110,13 +127,14 @@
   section{padding:56px 0;border-top:1px solid var(--line)}
   .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
 
-  .entry{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--line)}
+  .entry{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--line);transition:padding .25s ease}
   .entry:last-child{border-bottom:none}
-  .entry .ref{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:3px}
+  .entry .ref{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:3px;transition:color .2s ease}
   .entry .ref b{display:block;color:var(--accent);font-weight:500}
   .entry h3{font-family:var(--display);font-size:19px;font-weight:700;margin-bottom:4px}
-  .entry h3 a{color:var(--ink)}
+  .entry h3 a{color:var(--ink);transition:color .2s ease}
   .entry h3 a:hover{color:var(--accent);text-decoration:none}
+  .entry:hover .ref{color:var(--ink)}
   .entry p{color:var(--muted);font-size:15.5px;max-width:540px}
 
   .how p{max-width:600px;color:var(--muted);font-size:16.5px}
@@ -127,11 +145,12 @@
   .cta h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);font-weight:700;margin-bottom:10px}
   .cta > p{color:#AEB6C0;max-width:520px;margin-bottom:30px;font-size:15.5px}
   .channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-  .channel{display:flex;flex-direction:column;gap:2px;background:var(--channel-bg);border:1px solid var(--channel-line);border-radius:10px;padding:16px 18px;color:#fff}
-  .channel:hover{text-decoration:none;border-color:var(--accent)}
+  .channel{display:flex;flex-direction:column;gap:2px;background:var(--channel-bg);border:1px solid var(--channel-line);border-radius:10px;padding:16px 18px;color:#fff;transition:border-color .2s ease,transform .25s cubic-bezier(.22,1,.36,1),background .2s ease}
+  .channel:hover{text-decoration:none;border-color:var(--accent);transform:translateY(-3px)}
   .channel small{font-family:var(--mono);font-size:11.5px;color:#8B93A0;text-transform:uppercase;letter-spacing:0.06em}
   .channel span{font-size:15px;font-weight:500;word-break:break-all}
   .channel.primary{background:var(--accent);border-color:var(--accent)}
+  .channel.primary:hover{filter:brightness(1.08)}
   .channel.primary small{color:#CFE9DF}
 
   footer{padding:36px 0 56px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
@@ -148,19 +167,31 @@
     .ask{padding:4px 0 48px}
     .choices{grid-template-columns:1fr}
     .choice{padding:18px 16px}
-    .answer{padding:20px 18px;font-size:15px}
+    .choice:hover{transform:none;box-shadow:none}
+    .answer-inner{padding:0 18px}
+    .answer.show .answer-inner{padding:20px 18px}
+    .answer{font-size:15px}
     section{padding:40px 0}
     .entry{grid-template-columns:1fr;gap:6px;padding:20px 0}
     .cta{padding:28px 20px;margin:48px 0;border-radius:12px}
     .channels{grid-template-columns:1fr}
+    .channel:hover{transform:none}
     footer{flex-direction:column;gap:6px;align-items:flex-start}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .reveal,.reveal.in{opacity:1;transform:none;transition:none}
+    .ask h2 .cursor{animation:none}
+    .choice,.channel,.portrait,.portrait img,.theme,.theme svg,.answer{transition:none !important}
+    .choice:hover,.channel:hover,.portrait:hover,.portrait:hover img{transform:none;box-shadow:none}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<nav>
+<nav class="reveal in">
   <div class="logo"><span>~/</span>radi</div>
   <div class="nav-right">
     <a class="top" href="#contact">Contact</a>
@@ -174,50 +205,56 @@
 <header>
   <div class="hero-grid">
     <div>
-      <h1>I build things<br>that work on the web.</h1>
-      <p class="lede">Web developer. 3 companies, one product of my own, and a lot of production code. Cairo, working anywhere.</p>
+      <h1 class="reveal reveal-d1">I build things<br>that work on the web.</h1>
+      <p class="lede reveal reveal-d2">Web developer. 3 companies, one product of my own, and a lot of production code. Cairo, working anywhere.</p>
     </div>
-    <div class="portrait">
+    <div class="portrait reveal reveal-d3">
       <img src="me.PNG" alt="Eslam, web developer" width="240" height="240" fetchpriority="high">
     </div>
   </div>
 </header>
 
 <div class="ask">
-  <h2><b>$</b> what do you need?</h2>
+  <h2 class="reveal"><b>$</b> what do you need?<span class="cursor" aria-hidden="true"></span></h2>
   <div class="choices">
-    <button class="choice" data-a="a1">
+    <button class="choice reveal reveal-d1" data-a="a1">
       <h3>An online store</h3>
       <p>Products, checkout, orders.</p>
     </button>
-    <button class="choice" data-a="a2">
+    <button class="choice reveal reveal-d2" data-a="a2">
       <h3>Payments that work</h3>
       <p>Integrations, payouts, fees.</p>
     </button>
-    <button class="choice" data-a="a3">
+    <button class="choice reveal reveal-d3" data-a="a3">
       <h3>A website for your company</h3>
       <p>From nothing to live.</p>
     </button>
   </div>
 
   <div class="answer" id="a1">
-    <span class="from">// online store</span>
-    I build the whole thing: catalog, cart, checkout, order management, admin panel. And because I come from payments, I know the checkout part best. That is the part most stores get wrong. <strong>You get a store that sells and gets paid.</strong>
+    <div class="answer-inner">
+      <span class="from">// online store</span>
+      I build the whole thing: catalog, cart, checkout, order management, admin panel. And because I come from payments, I know the checkout part best. That is the part most stores get wrong. <strong>You get a store that sells and gets paid.</strong>
+    </div>
   </div>
   <div class="answer" id="a2">
-    <span class="from">// payments</span>
-    This is my home ground. Years inside payment systems at <a href="https://paytal.ai" target="_blank" rel="noopener">Paytal</a>: provider integrations, payroll payouts, fee logic, and the edge cases across currencies and account types. <strong>If money moves through your product, I make sure it moves correctly.</strong>
+    <div class="answer-inner">
+      <span class="from">// payments</span>
+      This is my home ground. Years inside payment systems at <a href="https://paytal.ai" target="_blank" rel="noopener">Paytal</a>: provider integrations, payroll payouts, fee logic, and the edge cases across currencies and account types. <strong>If money moves through your product, I make sure it moves correctly.</strong>
+    </div>
   </div>
   <div class="answer" id="a3">
-    <span class="from">// company website</span>
-    I built <a href="https://scene-craft.net" target="_blank" rel="noopener">scene-craft.net</a> for a client, solo. They brought the visual direction and brand assets, I did everything else: code, build, deployment. I can do the same for you, with your brand or a designer of your choice. <strong>One developer, the whole build.</strong>
+    <div class="answer-inner">
+      <span class="from">// company website</span>
+      I built <a href="https://scene-craft.net" target="_blank" rel="noopener">scene-craft.net</a> for a client, solo. They brought the visual direction and brand assets, I did everything else: code, build, deployment. I can do the same for you, with your brand or a designer of your choice. <strong>One developer, the whole build.</strong>
+    </div>
   </div>
 </div>
 
 <section id="work">
-  <div class="eyebrow">Where my code runs</div>
+  <div class="eyebrow reveal">Where my code runs</div>
 
-  <div class="entry">
+  <div class="entry reveal">
     <div class="ref"><b>paytal.ai</b>Backend</div>
     <div>
       <h3><a href="https://paytal.ai" target="_blank" rel="noopener">Paytal</a></h3>
@@ -225,7 +262,7 @@
     </div>
   </div>
 
-  <div class="entry">
+  <div class="entry reveal reveal-d1">
     <div class="ref"><b>squadio.com</b>Backend</div>
     <div>
       <h3><a href="https://squadio.com" target="_blank" rel="noopener">Squadio</a></h3>
@@ -233,7 +270,7 @@
     </div>
   </div>
 
-  <div class="entry">
+  <div class="entry reveal reveal-d2">
     <div class="ref"><b>wuzzuf.net</b>Backend</div>
     <div>
       <h3><a href="https://wuzzuf.net" target="_blank" rel="noopener">Wuzzuf</a></h3>
@@ -241,7 +278,7 @@
     </div>
   </div>
 
-  <div class="entry">
+  <div class="entry reveal reveal-d3">
     <div class="ref"><b>scene-craft.net</b>Solo build</div>
     <div>
       <h3><a href="https://scene-craft.net" target="_blank" rel="noopener">Scene Craft</a></h3>
@@ -251,13 +288,13 @@
 </section>
 
 <section class="how">
-  <div class="eyebrow">How it goes</div>
-  <p><b>You talk to me, not an agency.</b> No account manager, no telephone game. You explain what you need, I tell you honestly what it takes.</p>
-  <p><b>I ship.</b> I pick the stack the project needs, not the one I feel like using. It runs for years without drama.</p>
-  <p><b>Fixed scope, clear price.</b> You know what you're getting before we start.</p>
+  <div class="eyebrow reveal">How it goes</div>
+  <p class="reveal reveal-d1"><b>You talk to me, not an agency.</b> No account manager, no telephone game. You explain what you need, I tell you honestly what it takes.</p>
+  <p class="reveal reveal-d2"><b>I ship.</b> I pick the stack the project needs, not the one I feel like using. It runs for years without drama.</p>
+  <p class="reveal reveal-d3"><b>Fixed scope, clear price.</b> You know what you're getting before we start.</p>
 </section>
 
-<div class="cta" id="contact">
+<div class="cta reveal" id="contact">
   <h2>Tell me what you're building.</h2>
   <p>Store, payments, company site, or something that doesn't fit a box. Send it and I'll reply with a straight answer.</p>
   <div class="channels">
@@ -303,9 +340,33 @@
       const isOpen = target.classList.contains('show');
       answers.forEach(a => a.classList.remove('show'));
       choices.forEach(x => x.classList.remove('open'));
-      if (!isOpen) { target.classList.add('show'); c.classList.add('open'); }
+      if (!isOpen) {
+        target.classList.add('show');
+        c.classList.add('open');
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     });
   });
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduceMotion) {
+    reveals.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => io.observe(el));
+    // kick hero in on load
+    requestAnimationFrame(() => {
+      document.querySelectorAll('header .reveal, .ask > h2.reveal, .ask .choice.reveal').forEach(el => el.classList.add('in'));
+    });
+  }
 </script>
 </body>
 </html>
