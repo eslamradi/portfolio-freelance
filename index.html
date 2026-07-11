@@ -156,6 +156,8 @@
   .how p{max-width:600px;color:var(--muted);font-size:16.5px}
   .how p + p{margin-top:12px}
   .how b{color:var(--ink);font-weight:600}
+  .how a{color:var(--accent);text-underline-offset:3px}
+  .how a:hover{text-decoration:underline}
 
   .cta{background:var(--dark-block);color:#fff;border-radius:14px;padding:44px 36px;margin:72px 0}
   .cta h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);font-weight:700;margin-bottom:10px}
@@ -249,7 +251,7 @@
   <div class="hero-grid">
     <div>
       <h1 class="reveal-hero reveal-d1">I build things<br>that work on the web.</h1>
-      <p class="lede reveal-hero reveal-d2">Online stores, payment systems, and company websites — built end to end by one developer. You work with me directly: clear scope, honest timeline, and a fixed price before we start.</p>
+      <p class="lede reveal-hero reveal-d2">Online stores, payment systems, and company websites built end to end by one developer. You work with me directly: clear scope, honest timeline, and a fixed price before we start.</p>
       <p class="avail reveal-hero reveal-d3"><i aria-hidden="true"></i><b>Available</b> for new projects</p>
     </div>
     <div class="portrait reveal-hero reveal-d4">
@@ -346,11 +348,12 @@
   <p class="reveal reveal-d1"><b>You talk to me, not an agency.</b> No account manager, no telephone game. You explain what you need, I tell you honestly what it takes.</p>
   <p class="reveal reveal-d2"><b>I ship.</b> I pick the stack the project needs, not the one I feel like using. It runs for years without drama.</p>
   <p class="reveal reveal-d3"><b>Fixed scope, clear price.</b> You know what you're getting before we start.</p>
+  <p class="reveal reveal-d4"><b>Measured, not guessed.</b> Fast first load, accessible markup, no layout jump. This site runs 90+ on mobile PageSpeed. <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Feslamradi.com%2F" target="_blank" rel="noopener">See the live report</a>.</p>
 </section>
 
 <div class="cta reveal" id="contact">
   <h2>Tell me what you're building.</h2>
-  <p>Store, payments, company site, or something that doesn't fit a box. Fill this in and I'll get a clear brief — or just reach out directly.</p>
+  <p>Store, payments, company site, or something that doesn't fit a box. Fill this in and I'll get a clear brief, or just reach out directly.</p>
 
   <form class="brief" id="brief">
     <div class="brief-grid">
@@ -468,7 +471,7 @@
     btn.addEventListener('click', async () => {
       const email = btn.dataset.email;
       const ok = await copyText(email);
-      showToast(ok ? `Copied ${email}` : `Couldn't copy — ${email}`);
+      showToast(ok ? `Copied ${email}` : `Couldn't copy: ${email}`);
     });
   });
 
@@ -477,7 +480,7 @@
     const budget = document.getElementById('briefBudget').value.trim() || 'Not sure yet';
     const timeline = document.getElementById('briefTimeline').value || 'Flexible';
     return [
-      "Hi Eslam — quick brief from your site:",
+      "Hi Eslam, quick brief from your site:",
       "",
       `Project: ${project}`,
       `Budget: ${budget}`,

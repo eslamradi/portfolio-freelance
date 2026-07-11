@@ -1,6 +1,6 @@
 # portfolio-freelance
 
-Personal freelance site for [Eslam Radi](https://eslamradi.com) — web developer focused on online stores, payment systems, and company websites.
+Personal freelance site for [Eslam Radi](https://eslamradi.com), web developer focused on online stores, payment systems, and company websites.
 
 ## Stack
 
