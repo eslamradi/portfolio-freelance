@@ -25,7 +25,7 @@
 <meta name="twitter:title" content="Eslam Radi | Web Developer">
 <meta name="twitter:description" content="Online stores, payment systems, company websites. Tell me what you're building.">
 <meta name="twitter:image" content="https://eslamradi.com/og.png">
-<link rel="preload" as="image" href="me.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="me-320.webp" type="image/webp" imagesrcset="me-320.webp 320w, me.webp 480w" imagesizes="(max-width: 700px) 150px, 240px" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -105,12 +105,12 @@
   .reveal-d2{transition-delay:.16s}
   .reveal-d3{transition-delay:.24s}
   .reveal-d4{transition-delay:.32s}
-  @keyframes fade-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-  .reveal-hero{opacity:0;animation:fade-up .7s cubic-bezier(.22,1,.36,1) forwards}
-  .reveal-hero.reveal-d1{animation-delay:.08s}
-  .reveal-hero.reveal-d2{animation-delay:.16s}
-  .reveal-hero.reveal-d3{animation-delay:.24s}
-  .reveal-hero.reveal-d4{animation-delay:.32s}
+  @keyframes fade-up{from{transform:translateY(14px)}to{transform:none}}
+  .reveal-hero{animation:fade-up .65s cubic-bezier(.22,1,.36,1) both}
+  .reveal-hero.reveal-d1{animation-delay:.06s}
+  .reveal-hero.reveal-d2{animation-delay:.12s}
+  .reveal-hero.reveal-d3{animation-delay:.18s}
+  .reveal-hero.reveal-d4{animation-delay:.24s}
 
   /* The question */
   .ask{padding:8px 0 72px}
@@ -253,7 +253,15 @@
       <p class="avail reveal-hero reveal-d3"><i aria-hidden="true"></i><b>Available</b> for new projects</p>
     </div>
     <div class="portrait reveal-hero reveal-d4">
-      <img src="me.webp" alt="Eslam, web developer" width="240" height="240" fetchpriority="high" decoding="async">
+      <img
+        src="me.webp"
+        srcset="me-320.webp 320w, me.webp 480w"
+        sizes="(max-width: 700px) 150px, 240px"
+        alt="Eslam, web developer"
+        width="240"
+        height="240"
+        fetchpriority="high"
+        decoding="async">
     </div>
   </div>
 </header>
@@ -519,14 +527,6 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => io.observe(el));
   }, { timeout: 1200 });
-
-  idle(() => {
-    const s = document.createElement('script');
-    s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-    s.async = true;
-    s.setAttribute('data-cf-beacon', '{"token":"cf3712d777514ecd813d848f98b00165"}');
-    document.body.appendChild(s);
-  }, { timeout: 4000 });
 </script>
 </body>
 </html>
