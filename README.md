@@ -32,6 +32,10 @@ Then open [http://localhost:8000](http://localhost:8000).
 
 Light and dark themes follow system preference by default, and can be toggled manually. Choice is stored in `localStorage`.
 
+## Analytics (Cloudflare)
+
+Traffic is tracked with [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) (privacy-friendly, no cookies). The beacon is in `index.html`; view reports in the Cloudflare dashboard under **Analytics & logs** → **Web Analytics**.
+
 ## Live
 
 [eslamradi.com](https://eslamradi.com)
