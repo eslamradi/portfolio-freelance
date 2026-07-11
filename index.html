@@ -105,6 +105,12 @@
   .reveal-d2{transition-delay:.16s}
   .reveal-d3{transition-delay:.24s}
   .reveal-d4{transition-delay:.32s}
+  @keyframes fade-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .reveal-hero{opacity:0;animation:fade-up .7s cubic-bezier(.22,1,.36,1) forwards}
+  .reveal-hero.reveal-d1{animation-delay:.08s}
+  .reveal-hero.reveal-d2{animation-delay:.16s}
+  .reveal-hero.reveal-d3{animation-delay:.24s}
+  .reveal-hero.reveal-d4{animation-delay:.32s}
 
   /* The question */
   .ask{padding:8px 0 72px}
@@ -217,8 +223,8 @@
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
-    .reveal,.reveal.in{opacity:1;transform:none;transition:none}
-    .ask h2 .cursor,.avail i{animation:none}
+    .reveal,.reveal.in,.reveal-hero{opacity:1;transform:none;transition:none;animation:none}
+    .ask h2 .cursor,.avail i,.avail i::after{animation:none}
     .choice,.channel,.portrait,.portrait img,.theme,.theme svg,.answer,.brief-btn,.toast{transition:none !important}
     .choice:hover,.channel:hover,.portrait:hover,.portrait:hover img,.brief-btn:hover{transform:none;box-shadow:none}
   }
@@ -227,7 +233,7 @@
 <body>
 <div class="wrap">
 
-<nav class="reveal in">
+<nav>
   <div class="logo"><span>~/</span>radi</div>
   <div class="nav-right">
     <a class="top" href="#contact">Contact</a>
@@ -242,28 +248,28 @@
 <header>
   <div class="hero-grid">
     <div>
-      <h1 class="reveal reveal-d1">I build things<br>that work on the web.</h1>
-      <p class="lede reveal reveal-d2">Online stores, payment systems, and company websites — built end to end by one developer. You work with me directly: clear scope, honest timeline, and a fixed price before we start.</p>
-      <p class="avail reveal reveal-d3"><i aria-hidden="true"></i><b>Available</b> for new projects</p>
+      <h1 class="reveal-hero reveal-d1">I build things<br>that work on the web.</h1>
+      <p class="lede reveal-hero reveal-d2">Online stores, payment systems, and company websites — built end to end by one developer. You work with me directly: clear scope, honest timeline, and a fixed price before we start.</p>
+      <p class="avail reveal-hero reveal-d3"><i aria-hidden="true"></i><b>Available</b> for new projects</p>
     </div>
-    <div class="portrait reveal reveal-d4">
+    <div class="portrait reveal-hero reveal-d4">
       <img src="me.webp" alt="Eslam, web developer" width="240" height="240" fetchpriority="high" decoding="async">
     </div>
   </div>
 </header>
 
 <div class="ask">
-  <h2 class="reveal"><b>$</b> what do you need?<span class="cursor" aria-hidden="true"></span></h2>
+  <h2 class="reveal-hero"><b>$</b> what do you need?<span class="cursor" aria-hidden="true"></span></h2>
   <div class="choices">
-    <button class="choice reveal reveal-d1" data-a="a1">
+    <button class="choice reveal-hero reveal-d1" data-a="a1">
       <h3>An online store</h3>
       <p>Products, checkout, orders.</p>
     </button>
-    <button class="choice reveal reveal-d2" data-a="a2">
+    <button class="choice reveal-hero reveal-d2" data-a="a2">
       <h3>Payments that work</h3>
       <p>Integrations, payouts, fees.</p>
     </button>
-    <button class="choice reveal reveal-d3" data-a="a3">
+    <button class="choice reveal-hero reveal-d3" data-a="a3">
       <h3>A website for your company</h3>
       <p>From nothing to live.</p>
     </button>
@@ -393,7 +399,12 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script>
+<script type="module">
+  const idle = (cb, opts) =>
+    window.requestIdleCallback
+      ? requestIdleCallback(cb, opts)
+      : setTimeout(cb, (opts && opts.timeout) || 1);
+
   document.getElementById('themeToggle').addEventListener('click', () => {
     const root = document.documentElement;
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -491,11 +502,13 @@
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const reveals = document.querySelectorAll('.reveal');
-  if (reduceMotion) {
-    reveals.forEach(el => el.classList.add('in'));
-  } else {
+  idle(() => {
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reveals = document.querySelectorAll('.reveal');
+    if (reduceMotion) {
+      reveals.forEach(el => el.classList.add('in'));
+      return;
+    }
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -505,13 +518,15 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => io.observe(el));
-    requestAnimationFrame(() => {
-      document.querySelectorAll('header .reveal, .ask > h2.reveal, .ask .choice.reveal').forEach(el => el.classList.add('in'));
-    });
-  }
+  }, { timeout: 1200 });
+
+  idle(() => {
+    const s = document.createElement('script');
+    s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    s.async = true;
+    s.setAttribute('data-cf-beacon', '{"token":"cf3712d777514ecd813d848f98b00165"}');
+    document.body.appendChild(s);
+  }, { timeout: 4000 });
 </script>
-<!-- Cloudflare Web Analytics -->
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf3712d777514ecd813d848f98b00165"}'></script>
-<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
